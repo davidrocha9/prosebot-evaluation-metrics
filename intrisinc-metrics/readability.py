@@ -1,12 +1,20 @@
 import textstat
 
 class ReadabilityMetrics:
+    # constructor
+    def __init__(self, text):
+        self.text = text
+        self.flesch_reading_ease = self.flesch_reading_ease(text)
+        self.gunning_fog = self.gunning_fog(text)
+        self.coleman_liau_index = self.coleman_liau_index(text)
+        self.automated_readability_index = self.automated_readability_index(text)
+
     # Flesch Reading Ease
     def flesch_reading_ease(self, text):
         """
         Calculates the Flesch Reading Ease score for the given text.
         Higher scores indicate greater readability.
-        Taking into account zerozero.pt's target audience, a score of 50 or lowe is considered "difficult to read".
+        Taking into account zerozero.pt's target audience, a score of 50 or lower is considered "difficult to read".
         """
         return textstat.flesch_reading_ease(text)
 
@@ -36,13 +44,7 @@ class ReadabilityMetrics:
         Taking into account zerozero.pt's target audience, a score of 12 or higher is considered "difficult to read".
         """
         return textstat.automated_readability_index(text)
-
-
-text = "No futebol, há determinados momentos que, passe o tempo que passar, são impossíveis de esquecer. O golo de Kelvin, no final da época de 12/13, é, claramente, um deles. Numa altura em que o Benfica estava perto de segurar um empate que quase lhe dava o título, o extremo apareceu para decidir uma Liga, numa história hollywoodesca."
-
-metrics = ReadabilityMetrics()
-
-print(metrics.flesch_reading_ease(text))
-print(metrics.gunning_fog(text))
-print(metrics.coleman_liau_index(text))
-print(metrics.automated_readability_index(text))
+    
+    # print override
+    def __str__(self):
+        return f'Readibility scores:\n   Flesch Reading Ease: {self.flesch_reading_ease}\n   Gunning Fog Index: {self.gunning_fog}\n   Coleman-Liau Index: {self.coleman_liau_index}\n   Automated Readability Index: {self.automated_readability_index}\n\n'
